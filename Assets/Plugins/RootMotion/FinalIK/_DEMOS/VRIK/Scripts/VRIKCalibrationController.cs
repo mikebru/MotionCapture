@@ -47,8 +47,21 @@ namespace RootMotion.Demos
         }
 
         [ContextMenu("Calibrate")]
-        void Calibrate() {
-			VRIKCalibrator.Calibrate(ik, settings, headTracker, bodyTracker, leftHandTracker, rightHandTracker, leftFootTracker, rightFootTracker);
+        public void Calibrate() {
+			ik.enabled = true;
+
+			StartCoroutine (WaitCalibrate ());
         }
+
+
+		IEnumerator WaitCalibrate()
+		{
+
+			yield return new WaitForSeconds (.1f);
+			VRIKCalibrator.Calibrate(ik, settings, headTracker, bodyTracker, leftHandTracker, rightHandTracker, leftFootTracker, rightFootTracker);
+
+		}
+
+
     }
 }
